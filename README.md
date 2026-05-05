@@ -21,6 +21,5 @@ subscription-backend/
 ├── .eslintrc.json
 ├── .prettierrc
 ├── .gitignore
-├── mockData.ts          ← ❌ DELETE this, move content to shopify/fixtures.ts
 ├── package.json
 └── tsconfig.json
