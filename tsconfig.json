@@ -48,8 +48,25 @@
     "target": "ES2020",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "strict": true,
-    "esModuleInterop": true,
-    "verbatimModuleSyntax": false
-  }
+    "sourceMap": true,
+    "outDir": "dist",
+     "rootDir": "apps/src"
+  },
+  "include": ["apps/src/**/*"]
 }
+
+// {
+//   "compilerOptions": {
+//     "target": "ES2020",
+//     "module": "NodeNext",
+//     "moduleResolution": "NodeNext",
+//     "strict": true,
+//     "esModuleInterop": true,
+//     "verbatimModuleSyntax": false,
+//     "rootDir": "./apps",
+//     "outDir": "./dist",
+//     "skipLibCheck": true
+//   },
+//   "include": ["apps/**/*"],
+//   "exclude": ["node_modules", "dist"]
+// }
