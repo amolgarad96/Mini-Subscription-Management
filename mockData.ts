@@ -1,9 +1,6 @@
-import type { SubscriptionContract } from '../types.js';
+// apps/api/src/shopify/fixtures.ts
+import type { SubscriptionContract } from '../types';
 
-// The initial seed data — 3 different subscriptions
-// sub_001 = ACTIVE monthly coffee subscription
-// sub_002 = PAUSED biweekly vitamins subscription
-// sub_003 = ACTIVE quarterly skincare subscription
 export const mockContracts: SubscriptionContract[] = [
   {
     id: 'sub_001',
@@ -37,8 +34,8 @@ export const mockContracts: SubscriptionContract[] = [
   },
   {
     id: 'sub_002',
-    status: 'PAUSED', // <-- already paused, to test resume
-    nextBillingDate: null, // <-- null because it's paused
+    status: 'PAUSED',
+    nextBillingDate: null,
     billingFrequency: { intervalCount: 2, interval: 'WEEK' },
     createdAt: '2025-02-20T12:00:00Z',
     updatedAt: '2025-04-10T14:00:00Z',
@@ -46,7 +43,7 @@ export const mockContracts: SubscriptionContract[] = [
       firstName: 'Arjun',
       lastName: 'Sharma',
       address1: '42 Koregaon Park',
-      address2: 'Apt 3B', // <-- has apartment number
+      address2: 'Apt 3B',
       city: 'Pune',
       province: 'Maharashtra',
       zip: '411001',
@@ -107,6 +104,7 @@ export const mockContracts: SubscriptionContract[] = [
   },
 ];
 
+// Mutable in-memory store for mutations
 export const contractStore = new Map<string, SubscriptionContract>(
   mockContracts.map((c) => [c.id, { ...c }]),
 );

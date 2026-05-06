@@ -1,0 +1,112 @@
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAUSED
+  CANCELLED
+  FAILED
+  EXPIRED
+}
+
+enum BillingInterval {
+  DAY
+  WEEK
+  MONTH
+  YEAR
+}
+
+type MoneyAmount {
+  amount: String!        # required
+  currencyCode: String!  # required
+}
+
+type BillingFrequency {
+  intervalCount: Int!
+  interval: BillingInterval!
+}
+
+type ShippingAddress {
+  firstName: String!
+  lastName: String!
+  address1: String!
+  address2: String
+  city: String!
+  province: String!
+  zip: String!
+  country: String!
+}
+
+type SubscriptionLineItem {
+  id: ID!
+  title: String!
+  variantTitle: String
+  quantity: Int!
+  unitPrice: MoneyAmount!
+  totalPrice: MoneyAmount!
+  sku: String
+  imageUrl: String
+}
+
+# The main contract type — this is what the frontend will display
+type SubscriptionContract {
+  id: ID!
+  status: SubscriptionStatus!
+  nextBillingDate: String       # null when paused
+  billingFrequency: BillingFrequency!
+  lineItems: [SubscriptionLineItem!]!  # array, never null, items never null
+  shippingAddress: ShippingAddress!
+  createdAt: String!
+  updatedAt: String!
+}
+
+
+type UserError {
+  field: String
+  message: String!
+  code: String!
+}
+
+type Query {
+  # Get all subscriptions for a customer
+  subscriptions(customerId: ID!): [SubscriptionContract!]!
+
+  # Get one subscription by its ID (returns null if not found)
+  subscription(id: ID!): SubscriptionContract
+}
+
+type PauseSubscriptionPayload {
+  contract: SubscriptionContract   # null if mutation failed
+  userErrors: [UserError!]!        # empty array = success
+}
+
+type ResumeSubscriptionPayload {
+  contract: SubscriptionContract
+  userErrors: [UserError!]!
+}
+
+type SkipDeliveryPayload {
+  contract: SubscriptionContract
+  userErrors: [UserError!]!
+}
+
+type CancelSubscriptionPayload {
+  contract: SubscriptionContract
+  userErrors: [UserError!]!
+}
+
+input PauseSubscriptionInput {
+  subscriptionId: ID!
+  resumeDate: String   # optional — ISO date when to auto-resume
+}
+
+input CancelSubscriptionInput {
+  subscriptionId: ID!
+  reason: String       # optional — why user want to cancel
+}
+
+# MUTATIONS — write operations
+type Mutation {
+  pauseSubscription(input: PauseSubscriptionInput!): PauseSubscriptionPayload!
+  resumeSubscription(subscriptionId: ID!): ResumeSubscriptionPayload!
+  skipNextDelivery(subscriptionId: ID!): SkipDeliveryPayload!
+  cancelSubscription(input: CancelSubscriptionInput!): CancelSubscriptionPayload!
+}
