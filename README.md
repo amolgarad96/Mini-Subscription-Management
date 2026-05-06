@@ -55,6 +55,27 @@ Mini subscription Management
   - Check image in public folder inside apps
     apps/public/images/project-architecture/architecture.png
 
+# Decisions & trade-offs
+
+- appolo server : 
+    - I was chosen appolo server to build the GraphQL API due to its strong ecosystem, ease of integration with Express, and developer-friendly tooling
+    - It allows clean separation between schema, resolvers, and business logic
+    - requires understanding of GraphQL concepts for effective usage
+
+- GraphQl :
+  - Learning from GraphQl: it is best choice to choose graphql instead rest for e-commerce like shopify so we can minimize api calls, we can query required data
+
+- Typescript :
+    - I was chose this as programming language to know errors during compiletime instead runtime
+
+- Mock data:
+    - store in memory mock data help me to focus on api design and business logic
+
+# What's incomplete
+
+    - Test
+    - Automated tests (unit/integration) were not included in this version.
+    - Priority was given to building a working end-to-end flow and clean architecture.
 
 # Future Improvements
 
